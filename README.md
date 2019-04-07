@@ -1,8 +1,8 @@
 
 
+Creates growing line animated chart video from DeepLabCut novel video analysis output data (in CSV format).
 
-
-
+Requires FFMpegWriter installed on computer to write output MP4 video.
 
 
 Useage:

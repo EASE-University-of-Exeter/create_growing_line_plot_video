@@ -16,6 +16,8 @@ fn = sys.argv[1]
     # file exists
 	
 csvFileDirName = os.path.dirname(fn)
+csvFileNameWithoutExtension = os.path.basename(fn).split('.')[0] # get filename without extension
+if csvFileNameWithoutExtension=="": csvFileNameWithoutExtension = "."
 #print(csvFileDirName) 
 
 # dataset
@@ -59,7 +61,9 @@ pinna_ear_right_line_y, = ax.plot(df.frame,df.pinna_ear_right_y, '#760202', line
 plt.xlim(0,len(df.index))
 plt.axis('off')
 plt.box(False)
-#plt.show()
+plt.show()
+
+figure.savefig(csvFileDirName + ".\\" + csvFileNameWithoutExtension + "_chart.jpg",bbox_inches='tight', transparent=False, dpi=300)
 
 
 metadata = dict(title='DeepLabCut chart', artist='User',
@@ -89,9 +93,9 @@ with writer.saving(figure, csvFileDirName + ".\\growing_line_plot_video.mp4", 10
 		pinna_ear_left_line_y.set_data(df.frame[:n],df.pinna_ear_left_y[:n])
 		pinna_ear_right_line_y.set_data(df.frame[:n],df.pinna_ear_right_y[:n])
 		writer.grab_frame()
-		#if not os.path.exists(csvFileDirName + '\\frames\\'):   # umcomment this and next two lines to save individual frames
-		  #os.makedirs(csvFileDirName + '\\frames\\')
-		#figure.savefig(csvFileDirName + '\\frames\\Frame%03d.png' %n,bbox_inches='tight', transparent=True, dpi=300) 
+		if not os.path.exists(csvFileDirName + '\\frames\\'):   # umcomment this and next two lines to save individual frames
+		  os.makedirs(csvFileDirName + '\\frames\\')
+		figure.savefig(csvFileDirName + '\\frames\\Frame%03d.png' %n,bbox_inches='tight', transparent=True, dpi=300) 
 	
 
 
